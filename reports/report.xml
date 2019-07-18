@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <report
+            id="account_vat_63_challan"
+            model="account.invoice"
+            string="VAT 6.3 Challan"
+            report_type="qweb-pdf"
+            name="vat_bd_6_3.report_vat_63_challan"
+            file="vat_bd_6_3.report_vat_63_challan"
+        />
+
+
+    </data>
+</odoo>
