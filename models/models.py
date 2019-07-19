@@ -12,6 +12,7 @@ class res_partner_bin_field(models.Model):
 
 class account_invoice(models.Model):
     _inherit = 'account.invoice'
+    time_invoice = fields.Datetime(string="Invoice Time" ,default=lambda self: fields.datetime.now())
 
     @api.multi
     def vat_63_challan_print(self):
@@ -24,3 +25,6 @@ class account_invoice(models.Model):
             return self.env.ref('vat_bd_6_3.account_vat_63_challan').report_action(self)
         # else:
         #     return self.env.ref('account.account_vat_63_challan').report_action(self)
+class account_invoice_line(models.Model):
+    _inherit="account.invoice.line"
+    invoice_line_supplimentary_tax = fields.Monetary(string='Supplementary Duty', currency_field='company_currency_id',default="0")
