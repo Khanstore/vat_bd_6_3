@@ -13,7 +13,7 @@ class res_partner_bin_field(models.Model):
 class account_invoice(models.Model):
     _inherit = 'account.move'
     time_invoice = fields.Datetime(string="Invoice Time" ,default=lambda self: fields.datetime.now())
-
+    vat_challan_no = fields.Char("Mushak 6.3")
 
     def vat_63_challan_print(self):
         """ Print the Vat 6.3 Challan and mark it as sent, so that we can see more

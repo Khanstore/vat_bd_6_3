@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data>
-         <record id="vat63" model="report.paperformat">
+         <record id="paperformat_vat63" model="report.paperformat">
             <field name="name">vat63</field>
             <field name="default" eval="True" />
             <field name="format">A4</field>
@@ -16,16 +15,26 @@
             <field name="header_spacing">50</field>
             <field name="dpi">100</field>
         </record>
-        <report
-            id="account_vat_63_challan"
-            model="account.move"
-            string="VAT 6.3 Challan"
-            report_type="qweb-pdf"
-            paperformat="vat63"
-            name="vat_bd_6_3.report_vat_63_challan"
-            file="vat_bd_6_3.report_vat_63_challan"
-        />
+<!--        <report-->
+<!--            id="account_vat_63_challan"-->
+<!--            model="account.move"-->
+<!--            string="VAT 6.3 Challan"-->
+<!--            report_type="qweb-pdf"-->
+<!--            paperformat="vat63"-->
+<!--            name="vat_bd_6_3.report_vat_63_challan"-->
+<!--            file="vat_bd_6_3.report_vat_63_challan"-->
+<!--        />-->
+    <record id="account_vat_63_challan" model="ir.actions.report">
+        <field name="name">VAT 6.3 Challan</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">vat_bd_6_3.report_vat_63_challan</field>
+        <field name="report_file">vat_bd_6_3.report_vat_63_challan</field>
+        <field name="paperformat_id" ref="vat_bd_6_3.paperformat_vat63"/>
+        <field name="print_report_name">'VAT - %s' % (object.name).replace('/', '')</field>
+        <field name="binding_model_id" ref="model_account_move"/>
+        <field name="binding_type">report</field>
+    </record>
 
 
-    </data>
 </odoo>
