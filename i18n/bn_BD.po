@@ -1,0 +1,103 @@
+# Bangla (Bangladesh) translation for vat_bd_6_3
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo VAT BD 6.3\n"
+"POT-Creation-Date: 2026-01-01 00:00+0000\n"
+"PO-Revision-Date: 2026-01-01 00:00+0000\n"
+"Language: bn_BD\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# --- Report header labels ---
+msgid "Name of Registered Person:"
+msgstr "নিবন্ধিত ব্যক্তির নামঃ"
+
+msgid "BIN:"
+msgstr "বিআইএনঃ"
+
+msgid "Address:"
+msgstr "ঠিকানাঃ"
+
+# --- Buyer info row labels ---
+msgid "Name of Purchaser:"
+msgstr "ক্রেতার নামঃ"
+
+msgid "Challan No.:"
+msgstr "চালানপত্র নম্বরঃ"
+
+msgid "BIN of Purchaser:"
+msgstr "ক্রেতার বিআইএনঃ"
+
+msgid "Date of Issue:"
+msgstr "ইস্যুর তারিখঃ"
+
+msgid "Destination of Supply:"
+msgstr "সরবরাহের গন্তব্যস্থলঃ"
+
+msgid "Time of Issue:"
+msgstr "ইস্যুর সময়ঃ"
+
+# --- Column headers ---
+msgid "SL"
+msgstr "ক্রমিক নং"
+
+msgid "Goods / Service Description (with Brand Name)"
+msgstr "পণ্য/সেবার বিবরণ (ব্র্যান্ড নামসহ)"
+
+msgid "Unit"
+msgstr "একক"
+
+msgid "Qty"
+msgstr "পরিমাণ"
+
+msgid "Unit Value (BDT)"
+msgstr "একক মূল্য (টাকা)"
+
+msgid "Total Value (BDT)"
+msgstr "মোট মূল্য (টাকা)"
+
+msgid "Suppl. Duty (BDT)"
+msgstr "সম্পূরক শুল্ক (টাকা)"
+
+msgid "VAT Rate"
+msgstr "ভ্যাট হার"
+
+msgid "VAT Amount (BDT)"
+msgstr "ভ্যাট পরিমাণ (টাকা)"
+
+msgid "Total incl. Duty & Tax (BDT)"
+msgstr "শুল্ক ও কর সহ মোট (টাকা)"
+
+# --- Footer labels ---
+msgid "Total"
+msgstr "মোট"
+
+msgid "Name of Officer-in-Charge:"
+msgstr "দায়িত্বপ্রাপ্ত কর্মকর্তার নামঃ"
+
+msgid "Designation:"
+msgstr "পদবীঃ"
+
+msgid "Signature:"
+msgstr "স্বাক্ষরঃ"
+
+msgid "Seal:"
+msgstr "সীলঃ"
+
+# --- Wizard ---
+msgid "Print VAT 6.3 Challan"
+msgstr "ভ্যাট ৬.৩ চালানপত্র মুদ্রণ"
+
+msgid "Print Language"
+msgstr "মুদ্রণের ভাষা"
+
+msgid "English"
+msgstr "ইংরেজি"
+
+msgid "Print"
+msgstr "মুদ্রণ করুন"
+
+msgid "Cancel"
+msgstr "বাতিল"

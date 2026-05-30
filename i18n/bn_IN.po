@@ -1,0 +1,181 @@
+# Translation of vat_bd_6_3 in Bengali (India)
+# This file contains the translation of the following modules:
+#	* vat_bd_6_3
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo VAT BD 6.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-01 00:00+0000\n"
+"PO-Revision-Date: 2026-01-01 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Bengali (India)\n"
+"Language: bn_IN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: vat_bd_6_3
+msgid "Name of Registered Person:"
+msgstr "নিবন্ধিত ব্যক্তির নামঃ"
+
+#. module: vat_bd_6_3
+msgid "BIN:"
+msgstr "বিআইএনঃ"
+
+#. module: vat_bd_6_3
+msgid "Address:"
+msgstr "ঠিকানাঃ"
+
+#. module: vat_bd_6_3
+msgid "Name of Purchaser:"
+msgstr "ক্রেতার নামঃ"
+
+#. module: vat_bd_6_3
+msgid "Challan No.:"
+msgstr "চালানপত্র নম্বরঃ"
+
+#. module: vat_bd_6_3
+msgid "BIN of Purchaser:"
+msgstr "ক্রেতার বিআইএনঃ"
+
+#. module: vat_bd_6_3
+msgid "Date of Issue:"
+msgstr "ইস্যুর তারিখঃ"
+
+#. module: vat_bd_6_3
+msgid "Destination of Supply:"
+msgstr "সরবরাহের গন্তব্যস্থলঃ"
+
+#. module: vat_bd_6_3
+msgid "Time of Issue:"
+msgstr "ইস্যুর সময়ঃ"
+
+#. module: vat_bd_6_3
+msgid "SL"
+msgstr "ক্রমিক নং"
+
+#. module: vat_bd_6_3
+msgid "Goods / Service Description (with Brand Name)"
+msgstr "পণ্য/সেবার বিবরণ (ব্র্যান্ড নামসহ)"
+
+#. module: vat_bd_6_3
+msgid "Unit"
+msgstr "একক"
+
+#. module: vat_bd_6_3
+msgid "Qty"
+msgstr "পরিমাণ"
+
+#. module: vat_bd_6_3
+msgid "Unit Value (BDT)"
+msgstr "একক মূল্য (টাকা)"
+
+#. module: vat_bd_6_3
+msgid "Total Value (BDT)"
+msgstr "মোট মূল্য (টাকা)"
+
+#. module: vat_bd_6_3
+msgid "Suppl. Duty (BDT)"
+msgstr "সম্পূরক শুল্ক (টাকা)"
+
+#. module: vat_bd_6_3
+msgid "VAT Rate"
+msgstr "ভ্যাট হার"
+
+#. module: vat_bd_6_3
+msgid "VAT Amount (BDT)"
+msgstr "ভ্যাট পরিমাণ (টাকা)"
+
+#. module: vat_bd_6_3
+msgid "Total incl. Duty & Tax (BDT)"
+msgstr "শুল্ক ও কর সহ মোট (টাকা)"
+
+#. module: vat_bd_6_3
+msgid "Total"
+msgstr "মোট"
+
+#. module: vat_bd_6_3
+msgid "Name of Officer-in-Charge:"
+msgstr "দায়িত্বপ্রাপ্ত কর্মকর্তার নামঃ"
+
+#. module: vat_bd_6_3
+msgid "Designation:"
+msgstr "পদবীঃ"
+
+#. module: vat_bd_6_3
+msgid "Signature:"
+msgstr "স্বাক্ষরঃ"
+
+#. module: vat_bd_6_3
+msgid "Seal:"
+msgstr "সীলঃ"
+
+#. module: vat_bd_6_3
+msgid "Print VAT 6.3 Challan"
+msgstr "ভ্যাট ৬.৩ চালানপত্র মুদ্রণ"
+
+#. module: vat_bd_6_3
+msgid "Print Language"
+msgstr "মুদ্রণের ভাষা"
+
+#. module: vat_bd_6_3
+msgid "English"
+msgstr "ইংরেজি"
+
+#. module: vat_bd_6_3
+msgid "Print"
+msgstr "মুদ্রণ করুন"
+
+#. module: vat_bd_6_3
+msgid "Cancel"
+msgstr "বাতিল"
+
+#. module: vat_bd_6_3
+msgid "Invoice Time"
+msgstr "চালান সময়"
+
+#. module: vat_bd_6_3
+msgid "Mushak 6.3 No."
+msgstr "মুশক ৬.৩ নং"
+
+#. module: vat_bd_6_3
+msgid "Supplementary Duty"
+msgstr "সম্পূরক শুল্ক"
+
+#. module: vat_bd_6_3
+msgid "VAT 6.3 Challan Language Selection"
+msgstr "ভ্যাট ৬.৩ চালান ভাষা নির্বাচন"
+
+#. module: vat_bd_6_3
+msgid "Government of the People's Republic of Bangladesh"
+msgstr "গণপ্রজাতন্ত্রী বাংলাদেশ সরকার"
+
+#. module: vat_bd_6_3
+msgid "National Board of Revenue"
+msgstr "জাতীয় রাজস্ব বোর্ড"
+
+#. module: vat_bd_6_3
+msgid "Tax Challan"
+msgstr "কর চালানপত্র"
+
+#. module: vat_bd_6_3
+msgid "[See Clauses (C) and (f) of Sub-Rule (1) of Rule 40]"
+msgstr "[বিধি ৪০ এর উপ-বিধি (১) এ (ক) ও (চ) দ্রষ্টব্য]"
+
+#. module: vat_bd_6_3
+msgid "Powered by Eagle ERP"
+msgstr "Eagle ERP দ্বারা চালিত"
+
+#. module: vat_bd_6_3
+msgid "Generate Mushak 6.3"
+msgstr "মুশক ৬.৩ তৈরি করুন"
+
+#. module: vat_bd_6_3
+msgid "Print VAT 6.3"
+msgstr "ভ্যাট ৬.৩ মুদ্রণ করুন"
+
+#. module: vat_bd_6_3
+msgid "Suppl. Duty"
+msgstr "সম্পূরক শুল্ক"
