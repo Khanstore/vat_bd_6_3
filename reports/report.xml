@@ -19,7 +19,7 @@
     <record id="account_vat_63_challan" model="ir.actions.report">
         <field name="name">VAT 6.3 Challan</field>
         <field name="model">account.move</field>
-        <field name="report_type">qweb-pdf</field>
+        <field name="report_type">qweb-html</field>
         <field name="report_name">vat_bd_6_3.report_vat_63_challan</field>
         <field name="report_file">vat_bd_6_3.report_vat_63_challan</field>
         <field name="paperformat_id" ref="vat_bd_6_3.paperformat_vat63"/>

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import pytz
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
@@ -20,6 +21,11 @@ class AccountMove(models.Model):
     time_invoice = fields.Datetime(
         string="Invoice Time",
         default=lambda self: fields.Datetime.now(),
+    )
+    time_invoice_display = fields.Char(
+        string="Invoice Time Display",
+        readonly=True,
+        copy=False,
     )
     vat_challan_no = fields.Char(
         string="Mushak 6.3 No.",
@@ -44,7 +50,13 @@ class AccountMove(models.Model):
                 raise UserError(_("Mushak 6.3 challan is only applicable to customer invoices."))
             seq = self.env['ir.sequence'].with_company(record.company_id).next_by_code('vat.mushak.6.3') or '/'
             record.vat_challan_no = seq
-            record.time_invoice = fields.Datetime.now()
+            now = fields.Datetime.now()
+            record.time_invoice = now
+            # Convert UTC -> user's local timezone for the printed challan.
+            # 'now' is a naive datetime in UTC; localize it, then convert.
+            user_tz = self.env.user.tz or 'Asia/Dhaka'
+            local_dt = pytz.utc.localize(now).astimezone(pytz.timezone(user_tz))
+            record.time_invoice_display = local_dt.strftime('%H:%M:%S')
 
     def action_print_vat_challan_wizard(self):
         """Open language selection wizard before printing."""

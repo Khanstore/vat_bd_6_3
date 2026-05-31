@@ -12,8 +12,22 @@
     <template id="vat_63_challan_doc">
       <t t-set="res_company" t-value="o.company_id"/>
       <t t-set="is_bn" t-value="o.challan_print_lang == 'bn_IN'"/>
-      <div>
 
+      <!--
+        bn(val) converts any value to a string then replaces
+        ASCII digits 0-9 with Bengali digits ০-৯.
+        Used for every numeric cell when is_bn is True.
+      -->
+      <t t-set="bn" t-value="lambda v: str(v).translate(str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯'))"/>
+
+      <!--
+        fmt_money(amount, currency) renders a monetary value the same way
+        Odoo's monetary widget does (2 decimal places + currency symbol),
+        then optionally converts digits to Bengali.
+      -->
+      <t t-set="fmt_money" t-value="lambda amt, cur: (cur.symbol + '\u00a0' + bn('{:,.2f}'.format(amt))) if is_bn else (cur.symbol + '\u00a0' + '{:,.2f}'.format(amt))"/>
+
+      <div>
         <!-- ======= HEADER ======= -->
         <div class="header" width="100%">
           <style>
@@ -40,9 +54,9 @@
                 <small t-if="not is_bn">[See Clauses (C) and (f) of Sub-Rule (1) of Rule 40]</small>
                 <small t-if="is_bn">[বিধি ৪০ এর উপ-বিধি (১) এ (ক) ও (চ) দ্রষ্টব্য]</small>
               </td>
-              <td style="border:1px solid black;text-align:center;padding:6px;width:13%">
+              <td style="border:1px solid black !important;text-align:center;padding:6px;width:13%">
                 <strong>MUSHAK 6.3</strong><br/>
-                <span t-field="o.name" style="font-size:8px;"/>
+                <span t-esc="bn(o.name) if is_bn else o.name" style="font-size:8px;"/>
               </td>
             </tr>
             <tr></tr>
@@ -57,7 +71,8 @@
                 <div>
                   <strong t-if="not is_bn">BIN:</strong>
                   <strong t-if="is_bn">বিআইএনঃ</strong>
-                  <span t-field="res_company.bin"/>
+                  <t t-if="not is_bn"><span t-field="res_company.bin"/></t>
+                  <t t-if="is_bn"><span t-esc="bn(res_company.bin or '')"/></t>
                 </div>
                 <div>
                   <strong t-if="not is_bn">Address:</strong>
@@ -91,19 +106,28 @@
                         <strong t-if="not is_bn">Challan No.:</strong>
                         <strong t-if="is_bn">চালানপত্র নম্বরঃ</strong>
                       </div>
-                      <div class="col-3"><span t-field="o.vat_challan_no"/></div>
+                      <div class="col-3">
+                        <t t-if="not is_bn"><span t-field="o.vat_challan_no"/></t>
+                        <t t-if="is_bn"><span t-esc="bn(o.vat_challan_no or '')"/></t>
+                      </div>
                     </div>
                     <div class="row" style="margin-bottom:4px;">
                       <div class="col-3">
                         <strong t-if="not is_bn">BIN of Purchaser:</strong>
                         <strong t-if="is_bn">ক্রেতার বিআইএনঃ</strong>
                       </div>
-                      <div class="col-3"><span t-field="o.partner_id.bin"/></div>
+                      <div class="col-3">
+                        <t t-if="not is_bn"><span t-field="o.partner_id.bin"/></t>
+                        <t t-if="is_bn"><span t-esc="bn(o.partner_id.bin or '')"/></t>
+                      </div>
                       <div class="col-3">
                         <strong t-if="not is_bn">Date of Issue:</strong>
                         <strong t-if="is_bn">ইস্যুর তারিখঃ</strong>
                       </div>
-                      <div class="col-3"><span t-field="o.date"/></div>
+                      <div class="col-3">
+                        <t t-if="not is_bn"><span t-esc="o.date.strftime('%d/%m/%Y') if o.date else ''"/></t>
+                        <t t-if="is_bn"><span t-esc="bn(o.date.strftime('%d/%m/%Y')) if o.date else ''"/></t>
+                      </div>
                     </div>
                     <div class="row" style="margin-bottom:4px;">
                       <div class="col-3">
@@ -118,7 +142,10 @@
                         <strong t-if="not is_bn">Time of Issue:</strong>
                         <strong t-if="is_bn">ইস্যুর সময়ঃ</strong>
                       </div>
-                      <div class="col-3"><span t-field="o.time_invoice"/></div>
+                      <div class="col-3">
+                        <t t-if="not is_bn"><span t-field="o.time_invoice" t-options='{"widget": "datetime", "format": "HH:mm:ss"}'/></t>
+                        <t t-if="is_bn"><span t-field="o.time_invoice" t-options='{"widget": "datetime", "format": "HH:mm:ss"}'/></t>
+                      </div>
                     </div>
                   </th>
                 </tr>
@@ -165,33 +192,55 @@
                 <t t-foreach="o.invoice_line_ids" t-as="l">
                   <tr t-if="l.display_type not in ('line_section', 'line_note')">
                     <td class="text-center">
-                      <span t-esc="serial"/>
+                      <t t-if="not is_bn"><span t-esc="serial"/></t>
+                      <t t-if="is_bn"><span t-esc="bn(serial)"/></t>
                       <t t-set="serial" t-value="serial + 1"/>
                     </td>
                     <td><span t-field="l.name"/></td>
                     <td class="text-center"><span t-field="l.product_uom_id"/></td>
-                    <td class="text-center"><span t-field="l.quantity"/></td>
-                    <td class="text-right"><span t-field="l.price_unit"/></td>
-                    <td class="text-right">
-                      <span t-field="l.price_subtotal"
-                            t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                    <td class="text-center">
+                      <t t-if="not is_bn"><span t-field="l.quantity"/></t>
+                      <t t-if="is_bn"><span t-esc="bn(l.quantity)"/></t>
+                    </td>
+                    <td class="text-right" style="white-space:nowrap;">
+                      <t t-if="not is_bn"><span t-field="l.price_unit"/></t>
+                      <t t-if="is_bn"><span t-esc="fmt_money(l.price_unit, o.currency_id)"/></t>
+                    </td>
+                    <td class="text-right" style="white-space:nowrap;">
+                      <t t-if="not is_bn">
+                        <span t-field="l.price_subtotal"
+                              t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                      </t>
+                      <t t-if="is_bn"><span t-esc="fmt_money(l.price_subtotal, o.currency_id)"/></t>
                     </td>
                     <t t-set="total_sd" t-value="total_sd + l.invoice_line_supplementary_tax"/>
-                    <td class="text-right">
-                      <span t-esc="l.invoice_line_supplementary_tax"
-                            t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                    <td class="text-right" style="white-space:nowrap;">
+                      <t t-if="not is_bn">
+                        <span t-esc="l.invoice_line_supplementary_tax"
+                              t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                      </t>
+                      <t t-if="is_bn"><span t-esc="fmt_money(l.invoice_line_supplementary_tax, o.currency_id)"/></t>
                     </td>
-                    <td class="text-center">
-                      <span t-esc="', '.join(map(lambda x: x.description or x.name, l.tax_ids))"/>
+                    <td class="text-center" style="white-space:nowrap;">
+                      <t t-set="tax_label" t-value="', '.join(map(lambda x: x.description or x.name, l.tax_ids))"/>
+                      <t t-if="not is_bn"><span t-esc="tax_label"/></t>
+                      <t t-if="is_bn"><span t-esc="bn(tax_label)"/></t>
                     </td>
                     <t t-set="line_vat" t-value="l.price_total - l.price_subtotal"/>
-                    <td class="text-right">
-                      <span t-esc="line_vat"
-                            t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                    <td class="text-right" style="white-space:nowrap;">
+                      <t t-if="not is_bn">
+                        <span t-esc="line_vat"
+                              t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                      </t>
+                      <t t-if="is_bn"><span t-esc="fmt_money(line_vat, o.currency_id)"/></t>
                     </td>
-                    <td class="text-right">
-                      <span t-esc="l.price_subtotal + l.invoice_line_supplementary_tax + line_vat"
-                            t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                    <td class="text-right" style="white-space:nowrap;">
+                      <t t-set="line_total" t-value="l.price_subtotal + l.invoice_line_supplementary_tax + line_vat"/>
+                      <t t-if="not is_bn">
+                        <span t-esc="line_total"
+                              t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                      </t>
+                      <t t-if="is_bn"><span t-esc="fmt_money(line_total, o.currency_id)"/></t>
                     </td>
                   </tr>
                 </t>
@@ -210,22 +259,34 @@
                     <strong t-if="not is_bn">Total</strong>
                     <strong t-if="is_bn">মোট</strong>
                   </td>
-                  <td class="text-right">
-                    <span t-field="o.amount_untaxed"
-                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                  <td class="text-right" style="white-space:nowrap;">
+                    <t t-if="not is_bn">
+                      <span t-field="o.amount_untaxed"
+                            t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                    </t>
+                    <t t-if="is_bn"><span t-esc="fmt_money(o.amount_untaxed, o.currency_id)"/></t>
                   </td>
-                  <td class="text-right">
-                    <span t-esc="total_sd"
-                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                  <td class="text-right" style="white-space:nowrap;">
+                    <t t-if="not is_bn">
+                      <span t-esc="total_sd"
+                            t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                    </t>
+                    <t t-if="is_bn"><span t-esc="fmt_money(total_sd, o.currency_id)"/></t>
                   </td>
                   <td></td>
-                  <td class="text-right">
-                    <span t-field="o.amount_tax"
-                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                  <td class="text-right" style="white-space:nowrap;">
+                    <t t-if="not is_bn">
+                      <span t-field="o.amount_tax"
+                            t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                    </t>
+                    <t t-if="is_bn"><span t-esc="fmt_money(o.amount_tax, o.currency_id)"/></t>
                   </td>
-                  <td class="text-right">
-                    <span t-field="o.amount_total"
-                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                  <td class="text-right" style="white-space:nowrap;">
+                    <t t-if="not is_bn">
+                      <span t-field="o.amount_total"
+                            t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                    </t>
+                    <t t-if="is_bn"><span t-esc="fmt_money(o.amount_total, o.currency_id)"/></t>
                   </td>
                 </tr>
               </tbody>
@@ -274,10 +335,8 @@
                 <t t-if="is_bn">Eagle ERP দ্বারা চালিত</t>
               </td>
               <td style="text-align:right;font-size:9px;">
-                <t t-if="not is_bn">Page </t><t t-if="is_bn">পৃষ্ঠা </t>
-                <span class="page"/>
-                <t t-if="not is_bn"> of </t><t t-if="is_bn"> এর </t>
-                <span class="topage"/>
+                <t t-if="not is_bn">Page <span class="page"/> of <span class="topage"/></t>
+                <t t-if="is_bn">পৃষ্ঠা <span class="page"/> এর <span class="topage"/></t>
               </td>
             </tr>
           </table>
