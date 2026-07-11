@@ -143,8 +143,9 @@
                         <strong t-if="is_bn">ইস্যুর সময়ঃ</strong>
                       </div>
                       <div class="col-3">
-                        <t t-if="not is_bn"><span t-field="o.time_invoice" t-options='{"widget": "datetime", "format": "HH:mm:ss"}'/></t>
-                        <t t-if="is_bn"><span t-field="o.time_invoice" t-options='{"widget": "datetime", "format": "HH:mm:ss"}'/></t>
+
+                        <t t-if="not is_bn"><span t-esc="context_timestamp(o.time_invoice).strftime('%H:%M:%S')"/></t>
+                        <t t-if="is_bn"><span t-esc="bn(context_timestamp(o.time_invoice).strftime('%H:%M:%S'))"/></t>
                       </div>
                     </div>
                   </th>
